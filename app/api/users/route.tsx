@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+export const dynamic = 'force-dynamic';
 import { eq } from "drizzle-orm";
 import { db } from "@/config/db";
 import { users } from "@/config/schema"; // This is the table
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
           name: user.firstName || "Anonymous", // Change fields as needed
           credits: 10,
         })
-        .returning({users: users.id, name: users.name, email: users.email, credits: users.credits, createdAt: users.createdAt});
+        .returning({ users: users.id, name: users.name, email: users.email, credits: users.credits, createdAt: users.createdAt });
       return NextResponse.json(newUser[0]?.users);
     }
 

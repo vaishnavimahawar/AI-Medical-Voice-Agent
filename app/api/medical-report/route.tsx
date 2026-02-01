@@ -1,4 +1,5 @@
 // /api/generate-report.ts
+export const dynamic = 'force-dynamic';
 
 import { NextRequest, NextResponse } from "next/server";
 import { openai } from "@/config/openAi";
@@ -38,46 +39,46 @@ Respond with only the valid JSON. Do not include any extra explanation or format
 `;
 
 export async function POST(req: NextRequest) {
+  try {
+    const { sessionId, sessionDetails, messages } = await req.json();
+
+    const UserInput =
+      "AI Doctor Agent info: " + JSON.stringify(sessionDetails) +
+      "\nUser messages: " + JSON.stringify(messages);
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: REPORT_GEN_PROMPT },
+        { role: "user", content: UserInput },
+      ],
+    });
+
+    const rawContent = completion.choices[0]?.message?.content || "{}";
+
+    let parsed;
     try {
-      const { sessionId, sessionDetails, messages } = await req.json();
-  
-      const UserInput =
-        "AI Doctor Agent info: " + JSON.stringify(sessionDetails) +
-        "\nUser messages: " + JSON.stringify(messages);
-  
-      const completion = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [
-          { role: "system", content: REPORT_GEN_PROMPT },
-          { role: "user", content: UserInput },
-        ],
-      });
-  
-      const rawContent = completion.choices[0]?.message?.content || "{}";
-  
-      let parsed;
-      try {
-        parsed = JSON.parse(rawContent);
-      } catch (parseErr) {
-        console.error("❌ JSON parsing failed:", rawContent);
-        return NextResponse.json(
-          { error: "Invalid JSON format from OpenAI" },
-          { status: 500 }
-        );
-      }
-  
-      // ✅ Only update the report
-      await db
-        .update(SessionChatTable)
-        .set({ report: parsed })
-        .where(eq(SessionChatTable.sessionId, sessionId));
-  
-      return NextResponse.json(parsed);
-    } catch (error) {
-      console.error("❌ Report generation error:", error);
+      parsed = JSON.parse(rawContent);
+    } catch (parseErr) {
+      console.error("❌ JSON parsing failed:", rawContent);
       return NextResponse.json(
-        { error: "Failed to generate report" },
+        { error: "Invalid JSON format from OpenAI" },
         { status: 500 }
       );
     }
+
+    // ✅ Only update the report
+    await db
+      .update(SessionChatTable)
+      .set({ report: parsed })
+      .where(eq(SessionChatTable.sessionId, sessionId));
+
+    return NextResponse.json(parsed);
+  } catch (error) {
+    console.error("❌ Report generation error:", error);
+    return NextResponse.json(
+      { error: "Failed to generate report" },
+      { status: 500 }
+    );
   }
+}

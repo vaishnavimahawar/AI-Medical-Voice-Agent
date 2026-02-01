@@ -1,4 +1,5 @@
 import { SessionChatTable } from "@/config/schema";
+export const dynamic = 'force-dynamic';
 import { currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from 'uuid';
@@ -43,21 +44,21 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-    const {searchParams} = new URL(req.url);
-    const sessionId = searchParams.get("sessionId");
-    const user = await currentUser();
+  const { searchParams } = new URL(req.url);
+  const sessionId = searchParams.get("sessionId");
+  const user = await currentUser();
 
-  if(sessionId == 'all'){
+  if (sessionId == 'all') {
     const result = await db.select().from(SessionChatTable)
-    // @ts-ignore
-    .where(eq(SessionChatTable.createdBy,user?.primaryEmailAddress?.emailAddress))
-    .orderBy(desc(SessionChatTable.id))
+      // @ts-ignore
+      .where(eq(SessionChatTable.createdBy, user?.primaryEmailAddress?.emailAddress))
+      .orderBy(desc(SessionChatTable.id))
 
     return NextResponse.json(result);
-  }else{
+  } else {
     const result = await db.select().from(SessionChatTable)
-    // @ts-ignore
-    .where(eq(SessionChatTable.sessionId,sessionId))
+      // @ts-ignore
+      .where(eq(SessionChatTable.sessionId, sessionId))
 
     return NextResponse.json(result[0]);
   }
