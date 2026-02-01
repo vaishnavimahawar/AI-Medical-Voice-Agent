@@ -34,3 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# AI Medical Voice Agent
+
+A voice-powered AI agent for medical consultations, symptom analysis, and report generation.
+
+## Features
+- Voice input & transcription
+- AI-powered responses (OpenAI/Grok)
+- Medical report generation
+- Chat history
+
+## Tech Stack
+Next.js, Drizzle ORM, Shadcn/UI, etc.
+
+## Setup
+npm install
+npm run dev
