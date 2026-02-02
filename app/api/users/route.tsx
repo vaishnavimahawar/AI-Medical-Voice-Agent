@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;  // ← add this
+
 import { eq } from "drizzle-orm";
-import { db } from "@/config/db";
-import { users } from "@/config/schema"; // This is the table
+import { db } from "@/config/db";  // ← keep this exactly
+import { users } from "@/config/schema";
 import { currentUser } from "@clerk/nextjs/server";
+// rest of code unchanged
 
 export async function POST(req: NextRequest) {
   try {

@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import { currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from 'uuid';
-import { db } from "@/config/db";
+import { getDb } from '@/config/db';
 import { eq } from "drizzle-orm";
 import { desc } from "drizzle-orm";
 
