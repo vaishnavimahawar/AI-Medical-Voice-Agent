@@ -1,4 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🚀 AI Medical Voice Agent
+<div align="center"> <img src="https://img.shields.io/badge/AI-OpenAI-412991?style=for-the-badge&logo=openai" /> <img src="https://img.shields.io/badge/Voice-Vapi-FF9900?style=for-the-badge&logo=vapi" /> <img src="https://img.shields.io/badge/Database-Neon-00E599?style=for-the-badge&logo=neon" /> <img src="https://img.shields.io/badge/Frontend-Next.js-000000?style=for-the-badge&logo=nextdotjs" /> <br /> <strong>Empowering Healthcare through Low-Latency Voice Intelligence</strong> </div>
+
+📌 Overview
+The AI Medical Voice Agent is a sophisticated, real-time conversational system designed to bridge the gap between patients and medical information. By leveraging the power of Vapi for voice processing and OpenAI for medical reasoning, this agent provides a human-like, low-latency experience for symptom checking and medical inquiries.
+
+Why this project? In an era where healthcare access is critical, this agent acts as a first-line digital assistant, capable of understanding intent and providing instant, data-driven medical guidance.
+⚡ Key Features
+  > Ultra-Low Latency Voice: Real-time speech-to-speech interaction powered by Vapi (sub-700ms response).
+  > Medical Intelligence: Utilizes OpenAI's latest models for accurate, context-aware health assessments.
+  > Secure Auth: Integrated with Clerk for robust and seamless user authentication.
+  > Persistent Memory: Managed by Neon (Serverless Postgres) to track patient history and session data.
+  > Modern UI: A sleek, responsive dashboard built with Next.js and Tailwind CSS.
+
+🏗️ Technical Architecture
+As an Electronics & Communication engineer, I designed this system with a focus on efficient data flow and modularity:
+> Voice Layer: Vapi handles the WebRTC/Websocket connection, managing STT (Speech-to-Text) and TTS (Text-to-Speech).
+> Logic Layer: OpenAI processes the transcribed text, applying medical-focused prompts to generate structured advice.
+> Data Layer: Neon DB stores structured call logs and patient profiles for future retrieval.
+> Frontend Layer: Next.js provides the bridge between the user and the AI agent's controls.
+
+🛠️ Tech Stack
+Category,Technology
+Framework,Next.js 14 (App Router)
+AI / LLM,OpenAI GPT-4
+Voice API,Vapi.ai
+Database,Neon (PostgreSQL)
+Auth,Clerk
+Styling,Tailwind CSS / Shadcn UI
+Deployment,Vercel
 
 ## Getting Started
 
